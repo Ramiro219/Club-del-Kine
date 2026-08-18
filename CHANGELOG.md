@@ -6,6 +6,7 @@
 
 - Migración `20260817232455_initial_schema.sql` aplicada correctamente al proyecto remoto de Supabase el 18/08/2026.
 - Seed ampliado y preparado, todavía sin ejecutar en remoto, con pacientes, tratamientos, agenda, sesiones, pagos, aplicaciones, documentos y configuración ficticios.
+- Tipos TypeScript generados desde el esquema remoto y cliente Supabase tipado con `Database`.
 
 ### Agregado
 
@@ -30,7 +31,6 @@
 
 ### Pendiente
 
-- Generar y versionar tipos TypeScript desde el esquema remoto aplicado.
 - Cargar y validar el seed de forma controlada.
 - Ejecutar pruebas RLS positivas y negativas con usuarios ficticios de administración y recepción.
 - Validar concurrencia de aplicaciones y devoluciones antes de habilitar los módulos financieros.
