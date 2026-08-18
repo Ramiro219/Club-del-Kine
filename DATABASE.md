@@ -2,7 +2,9 @@
 
 ## Estado
 
-Etapa 2 implementada en `supabase/migrations/20260817232455_initial_schema.sql`. La migración es aditiva, no usa `DROP TABLE` y no fue aplicada a ningún proyecto remoto.
+Etapa 2 implementada en `supabase/migrations/20260817232455_initial_schema.sql`. La migración inicial fue aplicada correctamente al proyecto remoto de Supabase el **18 de agosto de 2026**. El archivo aplicado queda congelado como registro histórico y no debe editarse después de esta aplicación.
+
+El seed ampliado está preparado en `supabase/seed.sql`, pero todavía debe cargarse de forma controlada y validarse en el proyecto remoto. No fue ejecutado como parte de esta actualización documental.
 
 ## Convenciones
 
@@ -16,6 +18,8 @@ Etapa 2 implementada en `supabase/migrations/20260817232455_initial_schema.sql`.
 - No se almacena `sesiones_restantes`: se calcula como `sesiones_autorizadas` menos la suma de `sesiones.unidades_consumidas` no anuladas.
 
 ## Modelo y decisiones
+
+Tablas incluidas: `profiles`, `pacientes`, `obras_sociales`, `requisitos_obra_social`, `reglas_consumo_sesion`, `boxes`, `tipos_tratamiento`, `tratamientos`, `turnos`, `sesiones`, `metodos_pago`, `pagos`, `pago_aplicaciones`, `devoluciones`, `documentos`, `lista_espera`, `configuracion_horarios`, `excepciones_horarias`, `cierres_caja`, `alertas` y `auditoria`.
 
 - `turnos`, `sesiones` y `pagos` son entidades independientes. Una sesión puede referir a un turno, pero también registra explícitamente paciente y tratamiento, con una FK compuesta que impide mezclar contextos.
 - `pago_aplicaciones` permite distribuir un pago entre tratamientos o sesiones. Triggers con bloqueo de la fila padre impiden mezclar pacientes y hacen que aplicaciones y devoluciones confirmadas compitan por el mismo saldo del pago. También protegen cambios posteriores de importe, identidad y estado. Las futuras operaciones compuestas del frontend deberán envolverse además en funciones RPC.
@@ -36,15 +40,11 @@ El trigger sobre `auth.users` crea o sincroniza el perfil. La migración tambié
 
 La función de auditoría registra INSERT, UPDATE y DELETE con tabla, UUID, usuario, valores anterior/nuevo, campos cambiados y request id. `auditoria` no concede escritura directa a clientes autenticados.
 
-## Aplicación y revisión local
+## Estado de validación y limitaciones
 
-Antes de aplicar en un entorno real:
-
-1. Revisar completa la migración y el `seed.sql`.
-2. Probar en un proyecto local descartable con `supabase db reset` (requiere Docker y no se ejecutó en esta etapa).
-3. Inspeccionar tablas, constraints, índices, triggers y políticas en Studio local.
-4. Crear dos usuarios ficticios, asignar roles y probar permisos con sus JWT.
-5. Verificar operaciones financieras concurrentes mediante futuras RPC antes de habilitarlas en UI.
-6. Aplicar al remoto sólo después de aprobación y respaldo, usando el flujo de despliegue acordado.
-
-`supabase/seed.sql` contiene únicamente catálogos ficticios e idempotentes por claves naturales para desarrollo local; resuelve sus FKs por código o nombre, tolera UUID preexistentes, no crea usuarios y no incluye secretos.
+- La migración figura aplicada en el historial remoto; debe verificarse con `npx supabase migration list` antes de cualquier trabajo posterior.
+- El seed contiene únicamente información ficticia e idempotente por claves naturales. Resuelve FKs por DNI, código, nombre, autorización, referencia, fecha o ruta, tolera UUID de catálogo diferentes, no crea usuarios y no incluye secretos.
+- El seed completo todavía no fue cargado ni validado en remoto. Su carga deberá hacerse manualmente desde SQL Editor, en una ventana controlada, después de revisar el proyecto y confirmar que no existen datos que puedan confundirse con el prefijo ficticio `SEED-`, DNI `90000001`–`90000020` o códigos `*-DEMO`.
+- Sigue pendiente generar y versionar los tipos TypeScript desde el esquema aplicado.
+- Siguen pendientes pruebas RLS con usuarios ficticios separados de `administrador` y `recepcion`, incluida la comprobación negativa de devoluciones, cierres, configuración y auditoría.
+- Las operaciones compuestas y las pruebas de concurrencia financiera deben validarse antes de habilitar módulos productivos posteriores.
