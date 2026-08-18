@@ -1,6 +1,6 @@
 # Club del Kine
 
-Aplicación web de gestión para un centro pequeño de kinesiología y rehabilitación. La Etapa 1 incluye arquitectura frontend, autenticación preparada para Supabase, rutas protegidas, layout responsive y dashboard inicial.
+Aplicación web de gestión para un centro pequeño de kinesiología y rehabilitación. Las Etapas 1 y 2 incluyen la arquitectura frontend, autenticación preparada para Supabase, layout responsive, dashboard inicial y el esquema PostgreSQL completo con RLS y auditoría.
 
 ## Tecnologías
 
@@ -40,7 +40,17 @@ src/
   types/            Tipos del dominio
 ```
 
-La arquitectura completa, modelo inicial y decisiones pendientes están en `ARCHITECTURE.md`. La futura base PostgreSQL se documenta en `DATABASE.md` y sus cambios se realizarán mediante migraciones incrementales.
+La arquitectura completa, modelo inicial y decisiones pendientes están en `ARCHITECTURE.md`. La base PostgreSQL se documenta en `DATABASE.md` y sus cambios se realizan mediante migraciones incrementales.
+
+## Base de datos
+
+- Migración inicial: `supabase/migrations/20260817232455_initial_schema.sql`.
+- Datos ficticios locales: `supabase/seed.sql`.
+- Modelo, seguridad y guía de revisión: `DATABASE.md`.
+
+La migración crea el esquema de la Etapa 2, sincroniza perfiles con `auth.users`, habilita RLS y registra auditoría. No incluye secretos ni claves `service_role`. El seed es sólo para entornos locales o descartables; no debe cargarse automáticamente en producción.
+
+Para una revisión local completa se necesita Docker. Después de inspeccionar el SQL, puede ejecutarse `npx supabase db reset` contra el stack local. No ejecutar `db push` hasta que la migración haya sido aprobada y probada.
 
 ## Deploy
 
