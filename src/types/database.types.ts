@@ -1421,6 +1421,16 @@ export type Database = {
         Returns: string
       }
       current_user_has_role: { Args: { roles: string[] }; Returns: boolean }
+      reemplazar_documento_atomico: {
+        Args: {
+          p_documento_id: string
+          p_mime_type: string
+          p_nombre: string
+          p_storage_path: string
+          p_tamanio_bytes: number
+        }
+        Returns: string
+      }
       registrar_devolucion_atomica: {
         Args: {
           p_importe: number

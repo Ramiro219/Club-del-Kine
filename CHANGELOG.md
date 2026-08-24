@@ -1,5 +1,17 @@
 # Changelog
 
+## Etapa 7 - Documentación y Storage
+
+### Agregado
+
+- Módulo documental general y pestaña integrada en la ficha del paciente.
+- Carga privada de PDF, JPG y PNG con validación de tipo y máximo de 10 MB.
+- Asociación con paciente, tratamiento, obra social y requisito documental.
+- Visualización temporal, descarga, filtros, revisión y estados documentales.
+- Reemplazo con confirmación, conservación del archivo anterior y metadata auditable.
+- Bucket privado y políticas RLS para administración y recepción.
+- Migración `20260824030000_stage7_documentacion_storage.sql`.
+
 ## Etapa 6 — Pagos, devoluciones y caja
 
 ### En desarrollo

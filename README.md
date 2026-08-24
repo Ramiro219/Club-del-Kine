@@ -68,6 +68,10 @@ Incluye agenda diaria por box, resúmenes semanal y mensual, gestión de turnos,
 
 Incluye registro y aplicación de pagos, devoluciones con conservación del movimiento original, caja diaria por método y cierre administrativo. La migración `20260824020000_stage6_pagos_devoluciones_caja.sql` encapsula las operaciones críticas en funciones PostgreSQL atómicas.
 
+## Etapa 7: documentación y Storage
+
+Incluye carga privada de PDF, JPG y PNG de hasta 10 MB, asociación con paciente, tratamiento, obra social y requisito, filtros, visualización mediante URL temporal, descarga, revisión y reemplazo con conservación del historial. La migración `20260824030000_stage7_documentacion_storage.sql` crea el bucket privado `documentacion`, sus políticas RLS y la operación atómica de reemplazo.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:
