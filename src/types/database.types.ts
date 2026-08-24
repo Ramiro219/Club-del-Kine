@@ -1416,7 +1416,34 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cerrar_caja_diaria: {
+        Args: { p_fecha: string; p_observaciones?: string }
+        Returns: string
+      }
       current_user_has_role: { Args: { roles: string[] }; Returns: boolean }
+      registrar_devolucion_atomica: {
+        Args: {
+          p_importe: number
+          p_motivo: string
+          p_pago_id: string
+          p_referencia?: string
+        }
+        Returns: string
+      }
+      registrar_pago_atomico: {
+        Args: {
+          p_concepto: string
+          p_estado: string
+          p_fecha_pago: string
+          p_importe: number
+          p_metodo_pago_id: string
+          p_paciente_id: string
+          p_referencia: string
+          p_sesion_ids?: string[]
+          p_tratamiento_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

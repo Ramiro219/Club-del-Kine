@@ -62,6 +62,10 @@ La migración `20260823022000_stage4_tratamientos_sesiones.sql` añade la finali
 
 La migración `20260824000000_stage5_turnos_boxes_calendario.sql` instala una validación transaccional con bloqueo por box. Antes de insertar o mover un turno calcula la capacidad vigente, contempla cierres excepcionales y rechaza superposiciones que excedan el cupo. Los turnos cancelados o ausentes no ocupan capacidad.
 
+### Etapa 6 pendiente de aplicar
+
+La migración `20260824020000_stage6_pagos_devoluciones_caja.sql` crea funciones atómicas para registrar pagos y sus aplicaciones, registrar devoluciones y cerrar la caja. Cada función valida el rol dentro de PostgreSQL; las devoluciones y el cierre requieren administración. Los pagos originales y sus devoluciones permanecen como movimientos independientes auditables.
+
 - La migración figura aplicada en el historial remoto; debe verificarse con `npx supabase migration list` antes de cualquier trabajo posterior.
 - El seed contiene únicamente información ficticia e idempotente por claves naturales. Resuelve FKs por DNI, código, nombre, autorización, referencia, fecha o ruta, tolera UUID de catálogo diferentes, no crea usuarios y no incluye secretos.
 - El seed completo todavía no fue cargado ni validado en remoto. Su carga deberá hacerse manualmente desde SQL Editor, en una ventana controlada, después de revisar el proyecto y confirmar que no existen datos que puedan confundirse con el prefijo ficticio `SEED-`, DNI `90000001`–`90000020` o códigos `*-DEMO`.

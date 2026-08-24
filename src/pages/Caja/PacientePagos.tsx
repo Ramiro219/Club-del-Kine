@@ -1,0 +1,12 @@
+import { Banknote,Plus } from 'lucide-react'
+import { useCallback,useEffect,useState } from 'react'
+import { toast } from 'sonner'
+import { Badge } from '../../components/ui/Badge'
+import { EmptyState } from '../../components/ui/EmptyState'
+import { Modal } from '../../components/ui/Modal'
+import { listPatientPayments } from '../../services/pagos.service'
+import type { PagoView } from '../../types/stage6'
+import { formatDateTime } from '../../utils/date'
+import { PaymentForm } from './PaymentForm'
+
+export function PacientePagos({pacienteId}:{pacienteId:string}){const[payments,setPayments]=useState<PagoView[]>([]),[loading,setLoading]=useState(true),[open,setOpen]=useState(false);const load=useCallback(async()=>{setLoading(true);try{setPayments(await listPatientPayments(pacienteId))}catch(error){toast.error(error instanceof Error?error.message:'No se pudieron cargar los pagos.')}finally{setLoading(false)}},[pacienteId]);useEffect(()=>{void load()},[load]);return <><div className="embedded-heading"><div><h2>Pagos</h2><p>Historial completo de ingresos y devoluciones.</p></div><button className="primary-button compact" onClick={()=>setOpen(true)}><Plus size={17}/> Registrar pago</button></div>{loading?<div className="table-loading">Cargando pagos…</div>:payments.length?<section className="panel entity-panel"><div className="data-table-wrap"><table className="data-table"><thead><tr><th>Fecha</th><th>Concepto</th><th>Método</th><th>Estado</th><th>Importe</th><th>Devuelto</th></tr></thead><tbody>{payments.map((payment)=>{const refunded=payment.devoluciones.filter((item)=>item.estado==='confirmada').reduce((sum,item)=>sum+Number(item.importe),0);return <tr key={payment.id}><td>{formatDateTime(payment.fecha_pago)}</td><td>{payment.concepto}</td><td>{payment.metodo?.nombre??'—'}</td><td><Badge tone={payment.estado==='confirmado'?'green':payment.estado==='pendiente'?'amber':'red'}>{payment.estado}</Badge></td><td><strong>{Number(payment.importe).toLocaleString('es-AR',{style:'currency',currency:'ARS'})}</strong></td><td>{refunded?refunded.toLocaleString('es-AR',{style:'currency',currency:'ARS'}):'—'}</td></tr>})}</tbody></table></div></section>:<section className="panel"><EmptyState icon={Banknote} title="Sin pagos registrados" description="Los pagos del paciente aparecerán aquí."/></section>}<Modal open={open} title="Registrar pago" onClose={()=>setOpen(false)} wide><PaymentForm patientId={pacienteId} onCancel={()=>setOpen(false)} onSuccess={()=>{setOpen(false);void load()}}/></Modal></>}

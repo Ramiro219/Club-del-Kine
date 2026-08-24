@@ -22,6 +22,13 @@ const mapSession = (session: Session): AppUser => ({
   role: session.user.user_metadata.role === 'administrador' ? 'administrador' : 'recepcion',
 })
 
+async function mapSessionWithProfile(session: Session): Promise<AppUser> {
+  const fallback = mapSession(session)
+  if (!supabase) return fallback
+  const { data } = await supabase.from('profiles').select('nombre_completo,rol').eq('id', session.user.id).maybeSingle()
+  return data ? { ...fallback, name: data.nombre_completo || fallback.name, role: data.rol === 'administrador' ? 'administrador' : 'recepcion' } : fallback
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AppUser | null>(null)
   const [loading, setLoading] = useState(true)
@@ -37,11 +44,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false)
       return
     }
-    supabase.auth.getSession().then(({ data }) => {
-      setUser(data.session ? mapSession(data.session) : null)
+    supabase.auth.getSession().then(async ({ data }) => {
+      setUser(data.session ? await mapSessionWithProfile(data.session) : null)
       setLoading(false)
     })
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => setUser(session ? mapSession(session) : null))
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => { if (session) void mapSessionWithProfile(session).then(setUser); else setUser(null) })
     return () => data.subscription.unsubscribe()
   }, [demoMode])
 

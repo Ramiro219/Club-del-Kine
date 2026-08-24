@@ -13,6 +13,7 @@ import { TratamientoDetailPage } from '../pages/Tratamientos/TratamientoDetailPa
 import { TratamientosPage } from '../pages/Tratamientos/TratamientosPage'
 import { TurnosPage } from '../pages/Turnos/TurnosPage'
 import { BoxesPage } from '../pages/Boxes/BoxesPage'
+import { CajaPage } from '../pages/Caja/CajaPage'
 
 function ProtectedApp() {
   const { user, loading } = useAuth()
@@ -35,6 +36,7 @@ export function AppRoutes() {
           <Route path="sesiones" element={<SesionesPage />} />
           <Route path="turnos" element={<TurnosPage />} />
           <Route path="boxes" element={<BoxesPage />} />
+          <Route path="caja" element={<CajaPage />} />
           <Route path=":module" element={<PlaceholderPage />} />
         </Route>
       </Route>

@@ -1,5 +1,15 @@
 # Changelog
 
+## Etapa 6 — Pagos, devoluciones y caja
+
+### En desarrollo
+
+- Registro atómico de pagos totales, parciales y aplicados a una o varias sesiones.
+- Historial financiero por paciente y caja diaria.
+- Devoluciones independientes vinculadas al pago original y con confirmación.
+- Totales por método de pago, ingresos, devoluciones y saldo neto.
+- Cierre diario restringido a administración.
+
 ## Etapa 5 — Turnos, boxes y calendario
 
 ### En desarrollo

@@ -64,6 +64,10 @@ Incluye planes terapéuticos históricos, estadísticas calculadas, registro de 
 
 Incluye agenda diaria por box, resúmenes semanal y mensual, gestión de turnos, estados asistenciales y configuración de capacidad y horarios. La migración incremental `20260824000000_stage5_turnos_boxes_calendario.sql` agrega la validación de capacidad concurrente.
 
+## Etapa 6: pagos, devoluciones y caja
+
+Incluye registro y aplicación de pagos, devoluciones con conservación del movimiento original, caja diaria por método y cierre administrativo. La migración `20260824020000_stage6_pagos_devoluciones_caja.sql` encapsula las operaciones críticas en funciones PostgreSQL atómicas.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:
