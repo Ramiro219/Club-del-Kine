@@ -1,5 +1,15 @@
 # Changelog
 
+## Etapa 4 — Tratamientos y sesiones
+
+### En desarrollo
+
+- Gestión de tratamientos con historial, estados, cobertura, autorización y box sugerido.
+- Estadísticas calculadas de sesiones autorizadas, realizadas, ausencias, consumidas y restantes.
+- Registro de sesiones, llegada rápida, anulaciones auditables y estado de pago visible.
+- Integración dentro de la ficha individual del paciente.
+- Consumo automático conforme a las reglas vigentes de cada obra social.
+
 ## Etapa 3 — Pacientes y Obras Sociales
 
 ### En desarrollo

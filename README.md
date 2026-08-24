@@ -56,6 +56,10 @@ La interfaz de la Etapa 3 incorpora el padrón paginado de pacientes, alta y edi
 
 Antes de utilizar estos módulos contra Supabase remoto se debe aplicar, en este orden, la migración incremental `supabase/migrations/20260823010000_stage3_pacientes_obras_sociales.sql` y regenerar `src/types/database.types.ts`. No se debe editar el archivo de tipos generado manualmente.
 
+## Etapa 4: tratamientos y sesiones
+
+Incluye planes terapéuticos históricos, estadísticas calculadas, registro de asistencias y ausencias, llegada rápida y anulación sin borrado. Para habilitarla se debe aplicar `supabase/migrations/20260823022000_stage4_tratamientos_sesiones.sql` y regenerar los tipos TypeScript.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:

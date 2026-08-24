@@ -54,6 +54,10 @@ Flujo seguro para habilitarla:
 4. Regenerar `src/types/database.types.ts` con `npx.cmd supabase gen types typescript --linked --schema public` usando una redirección segura a un archivo temporal y reemplazando el generado solamente si el comando terminó correctamente.
 5. Ejecutar `npm.cmd run build` y probar los módulos con usuarios de administrador y recepción.
 
+### Etapa 4 pendiente de aplicar
+
+La migración `20260823022000_stage4_tratamientos_sesiones.sql` añade la finalización estimada del tratamiento, el box efectivo de cada sesión y los estados operativos requeridos. Un trigger calcula `unidades_consumidas` buscando primero una regla vigente de la obra social y luego una regla general. Las sesiones restantes nunca se almacenan: se derivan de autorizadas menos unidades consumidas.
+
 - La migración figura aplicada en el historial remoto; debe verificarse con `npx supabase migration list` antes de cualquier trabajo posterior.
 - El seed contiene únicamente información ficticia e idempotente por claves naturales. Resuelve FKs por DNI, código, nombre, autorización, referencia, fecha o ruta, tolera UUID de catálogo diferentes, no crea usuarios y no incluye secretos.
 - El seed completo todavía no fue cargado ni validado en remoto. Su carga deberá hacerse manualmente desde SQL Editor, en una ventana controlada, después de revisar el proyecto y confirmar que no existen datos que puedan confundirse con el prefijo ficticio `SEED-`, DNI `90000001`–`90000020` o códigos `*-DEMO`.

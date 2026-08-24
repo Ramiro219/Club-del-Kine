@@ -1111,6 +1111,7 @@ export type Database = {
       sesiones: {
         Row: {
           anulada_at: string | null
+          box_id: string | null
           created_at: string
           created_by: string | null
           estado: string
@@ -1127,6 +1128,7 @@ export type Database = {
         }
         Insert: {
           anulada_at?: string | null
+          box_id?: string | null
           created_at?: string
           created_by?: string | null
           estado?: string
@@ -1143,6 +1145,7 @@ export type Database = {
         }
         Update: {
           anulada_at?: string | null
+          box_id?: string | null
           created_at?: string
           created_by?: string | null
           estado?: string
@@ -1158,6 +1161,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "sesiones_box_id_fkey"
+            columns: ["box_id"]
+            isOneToOne: false
+            referencedRelation: "boxes"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "sesiones_created_by_fkey"
             columns: ["created_by"]
@@ -1229,6 +1239,7 @@ export type Database = {
           diagnostico: string | null
           estado: string
           fecha_alta_clinica: string | null
+          fecha_estimada_fin: string | null
           fecha_inicio: string
           id: string
           indicaciones: string | null
@@ -1247,6 +1258,7 @@ export type Database = {
           diagnostico?: string | null
           estado?: string
           fecha_alta_clinica?: string | null
+          fecha_estimada_fin?: string | null
           fecha_inicio?: string
           id?: string
           indicaciones?: string | null
@@ -1265,6 +1277,7 @@ export type Database = {
           diagnostico?: string | null
           estado?: string
           fecha_alta_clinica?: string | null
+          fecha_estimada_fin?: string | null
           fecha_inicio?: string
           id?: string
           indicaciones?: string | null
