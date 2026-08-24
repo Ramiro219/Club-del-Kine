@@ -1,5 +1,15 @@
 # Changelog
 
+## Etapa 3 — Pacientes y Obras Sociales
+
+### En desarrollo
+
+- Listado paginado y búsqueda en tiempo real de pacientes.
+- Alta, edición y ficha individual con pestañas preparadas por módulo.
+- Cálculo de edad desde la fecha de nacimiento.
+- Administración de obras sociales y acceso seguro a sus portales.
+- Segunda migración incremental para información clínica inicial y URLs configurables.
+
 ## Etapa 2 — Base de datos PostgreSQL
 
 ### Aplicado

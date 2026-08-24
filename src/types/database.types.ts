@@ -1,4 +1,4 @@
-﻿export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -700,6 +700,11 @@ export type Database = {
           id: string
           nombre: string
           observaciones: string | null
+          portal_paciente_url_template: string | null
+          portal_url: string | null
+          requisitos_generales: string | null
+          sesiones_tipicas: number | null
+          sitio_web: string | null
           telefono: string | null
           updated_at: string
         }
@@ -711,6 +716,11 @@ export type Database = {
           id?: string
           nombre: string
           observaciones?: string | null
+          portal_paciente_url_template?: string | null
+          portal_url?: string | null
+          requisitos_generales?: string | null
+          sesiones_tipicas?: number | null
+          sitio_web?: string | null
           telefono?: string | null
           updated_at?: string
         }
@@ -722,6 +732,11 @@ export type Database = {
           id?: string
           nombre?: string
           observaciones?: string | null
+          portal_paciente_url_template?: string | null
+          portal_url?: string | null
+          requisitos_generales?: string | null
+          sesiones_tipicas?: number | null
+          sitio_web?: string | null
           telefono?: string | null
           updated_at?: string
         }
@@ -729,6 +744,7 @@ export type Database = {
       }
       pacientes: {
         Row: {
+          antecedentes: string | null
           apellidos: string
           contacto_emergencia: string | null
           created_at: string
@@ -744,11 +760,13 @@ export type Database = {
           numero_afiliado: string | null
           obra_social_id: string | null
           observaciones: string | null
+          patologia_general: string | null
           telefono: string | null
           telefono_emergencia: string | null
           updated_at: string
         }
         Insert: {
+          antecedentes?: string | null
           apellidos: string
           contacto_emergencia?: string | null
           created_at?: string
@@ -764,11 +782,13 @@ export type Database = {
           numero_afiliado?: string | null
           obra_social_id?: string | null
           observaciones?: string | null
+          patologia_general?: string | null
           telefono?: string | null
           telefono_emergencia?: string | null
           updated_at?: string
         }
         Update: {
+          antecedentes?: string | null
           apellidos?: string
           contacto_emergencia?: string | null
           created_at?: string
@@ -784,6 +804,7 @@ export type Database = {
           numero_afiliado?: string | null
           obra_social_id?: string | null
           observaciones?: string | null
+          patologia_general?: string | null
           telefono?: string | null
           telefono_emergencia?: string | null
           updated_at?: string

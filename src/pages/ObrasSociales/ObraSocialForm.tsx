@@ -1,0 +1,23 @@
+import { useEffect, useState, type FormEvent } from 'react'
+import { toast } from 'sonner'
+import { createObraSocial, updateObraSocial } from '../../services/obrasSociales.service'
+import type { ObraSocialFormData, ObraSocialRow } from '../../types/stage3'
+
+const empty: ObraSocialFormData = { nombre: '', codigo: null, telefono: null, email: null, sitio_web: null, portal_url: null, portal_paciente_url_template: null, sesiones_tipicas: null, requisitos_generales: null, observaciones: null, activo: true }
+
+export function ObraSocialForm({ obra, onSuccess, onCancel }: { obra?: ObraSocialRow | null; onSuccess: () => void; onCancel: () => void }) {
+  const [values, setValues] = useState<ObraSocialFormData>(empty)
+  const [saving, setSaving] = useState(false)
+  useEffect(() => { setValues(obra ? { nombre: obra.nombre, codigo: obra.codigo, telefono: obra.telefono, email: obra.email, sitio_web: obra.sitio_web, portal_url: obra.portal_url, portal_paciente_url_template: obra.portal_paciente_url_template, sesiones_tipicas: obra.sesiones_tipicas, requisitos_generales: obra.requisitos_generales, observaciones: obra.observaciones, activo: obra.activo } : empty) }, [obra])
+  const set = (key: keyof ObraSocialFormData, value: string | boolean | number | null) => setValues((current) => ({ ...current, [key]: value === '' ? null : value }))
+  async function submit(event: FormEvent) {
+    event.preventDefault()
+    if (!values.nombre.trim()) return toast.error('El nombre es obligatorio.')
+    for (const url of [values.sitio_web, values.portal_url]) { if (url && !/^https?:\/\//i.test(url)) return toast.error('Las URLs deben comenzar con http:// o https://.') }
+    setSaving(true)
+    try { if (obra) await updateObraSocial(obra.id, values); else await createObraSocial(values); toast.success(obra ? 'Obra social actualizada.' : 'Obra social registrada.'); onSuccess() }
+    catch (error) { toast.error(error instanceof Error ? error.message : 'No se pudo guardar.') }
+    finally { setSaving(false) }
+  }
+  return <form className="entity-form" onSubmit={submit}><div className="form-section"><h3>Información general</h3><div className="form-grid"><label><span>Nombre *</span><input value={values.nombre} onChange={(e) => set('nombre', e.target.value)} required /></label><label><span>Código interno</span><input value={values.codigo ?? ''} onChange={(e) => set('codigo', e.target.value.toUpperCase())} /></label><label><span>Teléfono</span><input value={values.telefono ?? ''} onChange={(e) => set('telefono', e.target.value)} /></label><label><span>Email</span><input type="email" value={values.email ?? ''} onChange={(e) => set('email', e.target.value)} /></label><label><span>Sesiones típicas</span><input type="number" min="1" value={values.sesiones_tipicas ?? ''} onChange={(e) => set('sesiones_tipicas', e.target.value ? Number(e.target.value) : null)} /></label><label className="switch-label"><span>Estado</span><button type="button" className={`switch ${values.activo ? 'on' : ''}`} onClick={() => set('activo', !values.activo)}><i />{values.activo ? 'Activa' : 'Inactiva'}</button></label></div></div><div className="form-section"><h3>Accesos web</h3><div className="form-grid"><label className="full"><span>Sitio web</span><input type="url" placeholder="https://..." value={values.sitio_web ?? ''} onChange={(e) => set('sitio_web', e.target.value)} /></label><label className="full"><span>URL del portal</span><input type="url" placeholder="https://portal..." value={values.portal_url ?? ''} onChange={(e) => set('portal_url', e.target.value)} /></label><label className="full"><span>Plantilla de acceso por paciente</span><input placeholder="https://portal.../buscar?dni={dni}" value={values.portal_paciente_url_template ?? ''} onChange={(e) => set('portal_paciente_url_template', e.target.value)} /><small>Variables disponibles: {'{dni}'} y {'{afiliado}'}. No ingreses usuarios ni contraseñas.</small></label></div></div><div className="form-section"><h3>Requisitos</h3><div className="form-grid"><label className="full"><span>Requisitos generales</span><textarea value={values.requisitos_generales ?? ''} onChange={(e) => set('requisitos_generales', e.target.value)} placeholder="Orden médica, autorización, copia de DNI…" /></label><label className="full"><span>Observaciones</span><textarea value={values.observaciones ?? ''} onChange={(e) => set('observaciones', e.target.value)} /></label></div></div><footer className="form-actions"><button type="button" className="secondary-button" onClick={onCancel}>Cancelar</button><button className="primary-button" disabled={saving}>{saving ? 'Guardando…' : obra ? 'Guardar cambios' : 'Registrar obra social'}</button></footer></form>
+}

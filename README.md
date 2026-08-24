@@ -50,6 +50,12 @@ La arquitectura completa, modelo inicial y decisiones pendientes están en `ARCH
 
 La migración inicial fue aplicada correctamente al proyecto remoto el 18/08/2026. Crea el esquema de la Etapa 2, sincroniza perfiles con `auth.users`, habilita RLS y registra auditoría. No incluye secretos ni claves `service_role`.
 
+## Etapa 3: pacientes y obras sociales
+
+La interfaz de la Etapa 3 incorpora el padrón paginado de pacientes, alta y edición, ficha individual, datos clínicos iniciales, búsqueda y accesos a WhatsApp y al portal de la obra social. También incorpora el catálogo de obras sociales con requisitos, cantidad habitual de sesiones y enlaces externos.
+
+Antes de utilizar estos módulos contra Supabase remoto se debe aplicar, en este orden, la migración incremental `supabase/migrations/20260823010000_stage3_pacientes_obras_sociales.sql` y regenerar `src/types/database.types.ts`. No se debe editar el archivo de tipos generado manualmente.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:

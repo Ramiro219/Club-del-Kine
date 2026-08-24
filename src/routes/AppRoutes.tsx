@@ -4,6 +4,9 @@ import { LoadingScreen } from '../components/ui/LoadingScreen'
 import { useAuth } from '../contexts/AuthContext'
 import { DashboardPage } from '../pages/Dashboard/DashboardPage'
 import { LoginPage } from '../pages/Login/LoginPage'
+import { ObrasSocialesPage } from '../pages/ObrasSociales/ObrasSocialesPage'
+import { PacienteDetailPage } from '../pages/Pacientes/PacienteDetailPage'
+import { PacientesPage } from '../pages/Pacientes/PacientesPage'
 import { PlaceholderPage } from '../pages/Placeholder/PlaceholderPage'
 
 function ProtectedApp() {
@@ -19,6 +22,9 @@ export function AppRoutes() {
       <Route element={<ProtectedApp />}>
         <Route element={<AppLayout />}>
           <Route index element={<DashboardPage />} />
+          <Route path="pacientes" element={<PacientesPage />} />
+          <Route path="pacientes/:id" element={<PacienteDetailPage />} />
+          <Route path="obras-sociales" element={<ObrasSocialesPage />} />
           <Route path=":module" element={<PlaceholderPage />} />
         </Route>
       </Route>

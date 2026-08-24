@@ -42,6 +42,18 @@ La función de auditoría registra INSERT, UPDATE y DELETE con tabla, UUID, usua
 
 ## Estado de validación y limitaciones
 
+### Etapa 3 pendiente de aplicar
+
+La migración incremental `20260823010000_stage3_pacientes_obras_sociales.sql` amplía `pacientes` con patología general y antecedentes, y `obras_sociales` con enlaces web, plantilla del portal del afiliado, sesiones típicas y requisitos generales. El frontend ya está preparado, pero esta migración todavía no se aplicó al proyecto remoto desde este entorno porque Supabase CLI no tenía una sesión autenticada.
+
+Flujo seguro para habilitarla:
+
+1. Ejecutar `npx.cmd supabase login` si la sesión de CLI no está vigente.
+2. Confirmar el proyecto con `npx.cmd supabase projects list` y `npx.cmd supabase migration list`.
+3. Revisar el SQL incremental y ejecutar `npx.cmd supabase db push`.
+4. Regenerar `src/types/database.types.ts` con `npx.cmd supabase gen types typescript --linked --schema public` usando una redirección segura a un archivo temporal y reemplazando el generado solamente si el comando terminó correctamente.
+5. Ejecutar `npm.cmd run build` y probar los módulos con usuarios de administrador y recepción.
+
 - La migración figura aplicada en el historial remoto; debe verificarse con `npx supabase migration list` antes de cualquier trabajo posterior.
 - El seed contiene únicamente información ficticia e idempotente por claves naturales. Resuelve FKs por DNI, código, nombre, autorización, referencia, fecha o ruta, tolera UUID de catálogo diferentes, no crea usuarios y no incluye secretos.
 - El seed completo todavía no fue cargado ni validado en remoto. Su carga deberá hacerse manualmente desde SQL Editor, en una ventana controlada, después de revisar el proyecto y confirmar que no existen datos que puedan confundirse con el prefijo ficticio `SEED-`, DNI `90000001`–`90000020` o códigos `*-DEMO`.
