@@ -11,6 +11,8 @@ import { PlaceholderPage } from '../pages/Placeholder/PlaceholderPage'
 import { SesionesPage } from '../pages/Sesiones/SesionesPage'
 import { TratamientoDetailPage } from '../pages/Tratamientos/TratamientoDetailPage'
 import { TratamientosPage } from '../pages/Tratamientos/TratamientosPage'
+import { TurnosPage } from '../pages/Turnos/TurnosPage'
+import { BoxesPage } from '../pages/Boxes/BoxesPage'
 
 function ProtectedApp() {
   const { user, loading } = useAuth()
@@ -31,6 +33,8 @@ export function AppRoutes() {
           <Route path="tratamientos" element={<TratamientosPage />} />
           <Route path="tratamientos/:id" element={<TratamientoDetailPage />} />
           <Route path="sesiones" element={<SesionesPage />} />
+          <Route path="turnos" element={<TurnosPage />} />
+          <Route path="boxes" element={<BoxesPage />} />
           <Route path=":module" element={<PlaceholderPage />} />
         </Route>
       </Route>

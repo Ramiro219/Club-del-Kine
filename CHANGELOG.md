@@ -1,5 +1,15 @@
 # Changelog
 
+## Etapa 5 — Turnos, boxes y calendario
+
+### En desarrollo
+
+- Calendario profesional con vistas día, semana y mes; día como vista principal.
+- Grilla por horarios y boxes con disponibilidad y estados visuales.
+- Alta, edición, llegada, atención y cancelación de turnos con historial.
+- Configuración de boxes, capacidad y horarios de mañana/tarde.
+- Validación transaccional para impedir reservas por encima de la capacidad.
+
 ## Etapa 4 — Tratamientos y sesiones
 
 ### En desarrollo

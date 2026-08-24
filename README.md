@@ -60,6 +60,10 @@ Antes de utilizar estos módulos contra Supabase remoto se debe aplicar, en este
 
 Incluye planes terapéuticos históricos, estadísticas calculadas, registro de asistencias y ausencias, llegada rápida y anulación sin borrado. Para habilitarla se debe aplicar `supabase/migrations/20260823022000_stage4_tratamientos_sesiones.sql` y regenerar los tipos TypeScript.
 
+## Etapa 5: turnos, boxes y calendario
+
+Incluye agenda diaria por box, resúmenes semanal y mensual, gestión de turnos, estados asistenciales y configuración de capacidad y horarios. La migración incremental `20260824000000_stage5_turnos_boxes_calendario.sql` agrega la validación de capacidad concurrente.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:

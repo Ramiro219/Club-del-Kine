@@ -58,6 +58,10 @@ Flujo seguro para habilitarla:
 
 La migración `20260823022000_stage4_tratamientos_sesiones.sql` añade la finalización estimada del tratamiento, el box efectivo de cada sesión y los estados operativos requeridos. Un trigger calcula `unidades_consumidas` buscando primero una regla vigente de la obra social y luego una regla general. Las sesiones restantes nunca se almacenan: se derivan de autorizadas menos unidades consumidas.
 
+### Etapa 5 pendiente de aplicar
+
+La migración `20260824000000_stage5_turnos_boxes_calendario.sql` instala una validación transaccional con bloqueo por box. Antes de insertar o mover un turno calcula la capacidad vigente, contempla cierres excepcionales y rechaza superposiciones que excedan el cupo. Los turnos cancelados o ausentes no ocupan capacidad.
+
 - La migración figura aplicada en el historial remoto; debe verificarse con `npx supabase migration list` antes de cualquier trabajo posterior.
 - El seed contiene únicamente información ficticia e idempotente por claves naturales. Resuelve FKs por DNI, código, nombre, autorización, referencia, fecha o ruta, tolera UUID de catálogo diferentes, no crea usuarios y no incluye secretos.
 - El seed completo todavía no fue cargado ni validado en remoto. Su carga deberá hacerse manualmente desde SQL Editor, en una ventana controlada, después de revisar el proyecto y confirmar que no existen datos que puedan confundirse con el prefijo ficticio `SEED-`, DNI `90000001`–`90000020` o códigos `*-DEMO`.
