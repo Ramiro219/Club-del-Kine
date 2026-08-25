@@ -74,6 +74,10 @@ La migración `20260824030000_stage7_documentacion_storage.sql` configura el buc
 
 Los reportes consultan sesiones, tratamientos, pacientes, pagos, devoluciones, documentos, boxes y obras sociales mediante la API autenticada y las políticas RLS existentes. Los KPIs y cierres se calculan para el período solicitado; no se persisten agregados que puedan divergir de los movimientos originales.
 
+### Etapa 9 pendiente de aplicar
+
+La migración `20260824040000_stage9_alertas_espera_whatsapp.sql` agrega `clave_dedupe` a `alertas` y funciones seguras para sincronizar condiciones operativas y cambiar estados respetando los campos de resolución. La lista de espera utiliza la tabla y políticas existentes; ninguna sugerencia asigna turnos automáticamente.
+
 - La migración figura aplicada en el historial remoto; debe verificarse con `npx supabase migration list` antes de cualquier trabajo posterior.
 - El seed contiene únicamente información ficticia e idempotente por claves naturales. Resuelve FKs por DNI, código, nombre, autorización, referencia, fecha o ruta, tolera UUID de catálogo diferentes, no crea usuarios y no incluye secretos.
 - El seed completo todavía no fue cargado ni validado en remoto. Su carga deberá hacerse manualmente desde SQL Editor, en una ventana controlada, después de revisar el proyecto y confirmar que no existen datos que puedan confundirse con el prefijo ficticio `SEED-`, DNI `90000001`–`90000020` o códigos `*-DEMO`.

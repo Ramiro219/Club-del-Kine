@@ -17,6 +17,7 @@ export type Database = {
       alertas: {
         Row: {
           asignada_a: string | null
+          clave_dedupe: string | null
           created_at: string
           created_by: string | null
           estado: string
@@ -35,6 +36,7 @@ export type Database = {
         }
         Insert: {
           asignada_a?: string | null
+          clave_dedupe?: string | null
           created_at?: string
           created_by?: string | null
           estado?: string
@@ -53,6 +55,7 @@ export type Database = {
         }
         Update: {
           asignada_a?: string | null
+          clave_dedupe?: string | null
           created_at?: string
           created_by?: string | null
           estado?: string
@@ -1416,6 +1419,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cambiar_estado_alerta: {
+        Args: { p_alerta_id: string; p_estado: string }
+        Returns: undefined
+      }
       cerrar_caja_diaria: {
         Args: { p_fecha: string; p_observaciones?: string }
         Returns: string
@@ -1454,6 +1461,7 @@ export type Database = {
         }
         Returns: string
       }
+      sincronizar_alertas_operativas: { Args: never; Returns: number }
     }
     Enums: {
       [_ in never]: never

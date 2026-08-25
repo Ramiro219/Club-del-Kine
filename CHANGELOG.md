@@ -1,5 +1,17 @@
 # Changelog
 
+## Etapa 9 - Alertas, lista de espera y WhatsApp
+
+### Agregado
+
+- Alertas por sesiones bajas, tratamientos vencidos, documentación y pagos pendientes, turnos próximos, capacidad y espera activa.
+- Sincronización idempotente y contador real en la campana superior.
+- Acciones para marcar vistas, resolver o descartar alertas.
+- Lista de espera con prioridad, fechas, horarios, días, box y estados.
+- Confirmación manual antes de marcar una solicitud como asignada.
+- Plantillas editables para WhatsApp mediante enlaces gratuitos `wa.me`.
+- Migración `20260824040000_stage9_alertas_espera_whatsapp.sql`.
+
 ## Etapa 8 - Reportes y cierres por obra social
 
 ### Agregado

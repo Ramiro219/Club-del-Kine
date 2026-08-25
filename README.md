@@ -76,6 +76,10 @@ Incluye carga privada de PDF, JPG y PNG de hasta 10 MB, asociación con paciente
 
 Incluye filtros por período, obra social, box y tratamiento; indicadores de pacientes, sesiones, ausencias, cancelaciones, documentación y recaudación; cierres detallados por obra social; distribución por box y exportación CSV o impresión PDF. Los resultados se derivan de las tablas operativas existentes y no almacenan totales duplicados.
 
+## Etapa 9: alertas, lista de espera y WhatsApp
+
+Incluye sincronización idempotente de alertas operativas, contador en la cabecera, resolución y descarte; lista de espera con prioridades, disponibilidad y estados; y mensajes editables que abren WhatsApp mediante `wa.me`, sin API paga ni envío automático.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:

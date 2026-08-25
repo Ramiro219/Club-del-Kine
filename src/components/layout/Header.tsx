@@ -1,10 +1,15 @@
 import { Bell, ChevronDown, LogOut, Menu, Search } from 'lucide-react'
 import { useState } from 'react'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import { alertCount } from '../../services/operaciones.service'
 
 export function Header({ onMenu }: { onMenu: () => void }) {
   const { user, signOut, demoMode } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [notifications, setNotifications] = useState(0)
+  useEffect(() => { if (demoMode) { setNotifications(4); return } const load=()=>void alertCount().then(setNotifications).catch(()=>setNotifications(0)); load(); const timer=window.setInterval(load,60000); return()=>window.clearInterval(timer) }, [demoMode])
   return (
     <header className="topbar">
       <button className="menu-button" onClick={onMenu} aria-label="Abrir menú"><Menu size={21} /></button>
@@ -15,7 +20,7 @@ export function Header({ onMenu }: { onMenu: () => void }) {
       </label>
       <div className="topbar-actions">
         {demoMode && <span className="demo-pill">Datos demo</span>}
-        <button className="icon-button notification" aria-label="Notificaciones"><Bell size={20} /><span>4</span></button>
+        <Link className="icon-button notification" to="/alertas" aria-label="Notificaciones"><Bell size={20} />{notifications>0&&<span>{notifications>99?'99+':notifications}</span>}</Link>
         <div className="user-menu">
           <button onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen}>
             <span className="avatar">ML</span>

@@ -16,6 +16,8 @@ import { BoxesPage } from '../pages/Boxes/BoxesPage'
 import { CajaPage } from '../pages/Caja/CajaPage'
 import { DocumentacionPage } from '../pages/Documentacion/DocumentacionPage'
 import { ReportesPage } from '../pages/Reportes/ReportesPage'
+import { AlertasPage } from '../pages/Alertas/AlertasPage'
+import { ListaEsperaPage } from '../pages/ListaEspera/ListaEsperaPage'
 
 function ProtectedApp() {
   const { user, loading } = useAuth()
@@ -41,6 +43,8 @@ export function AppRoutes() {
           <Route path="caja" element={<CajaPage />} />
           <Route path="documentacion" element={<DocumentacionPage />} />
           <Route path="reportes" element={<ReportesPage />} />
+          <Route path="alertas" element={<AlertasPage />} />
+          <Route path="lista-espera" element={<ListaEsperaPage />} />
           <Route path=":module" element={<PlaceholderPage />} />
         </Route>
       </Route>

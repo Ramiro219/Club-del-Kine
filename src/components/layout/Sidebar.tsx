@@ -1,4 +1,4 @@
-import { Activity, Building2, CalendarDays, ClipboardList, FileText, Gauge, Menu, Settings, Stethoscope, Users, WalletCards, X } from 'lucide-react'
+import { Activity, Building2, CalendarDays, ClipboardList, FileText, Gauge, ListChecks, Menu, Settings, Stethoscope, Users, WalletCards, X } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
 const nav = [
@@ -11,6 +11,7 @@ const nav = [
   { to: '/documentacion', label: 'Documentación', icon: FileText },
   { to: '/caja', label: 'Caja', icon: WalletCards },
   { to: '/reportes', label: 'Reportes', icon: ClipboardList },
+  { to: '/lista-espera', label: 'Lista de espera', icon: ListChecks },
   { to: '/configuracion', label: 'Configuración', icon: Settings },
 ]
 
