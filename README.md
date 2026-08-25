@@ -72,6 +72,10 @@ Incluye registro y aplicación de pagos, devoluciones con conservación del movi
 
 Incluye carga privada de PDF, JPG y PNG de hasta 10 MB, asociación con paciente, tratamiento, obra social y requisito, filtros, visualización mediante URL temporal, descarga, revisión y reemplazo con conservación del historial. La migración `20260824030000_stage7_documentacion_storage.sql` crea el bucket privado `documentacion`, sus políticas RLS y la operación atómica de reemplazo.
 
+## Etapa 8: reportes y cierres por obra social
+
+Incluye filtros por período, obra social, box y tratamiento; indicadores de pacientes, sesiones, ausencias, cancelaciones, documentación y recaudación; cierres detallados por obra social; distribución por box y exportación CSV o impresión PDF. Los resultados se derivan de las tablas operativas existentes y no almacenan totales duplicados.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:

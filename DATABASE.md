@@ -70,6 +70,10 @@ La migración `20260824020000_stage6_pagos_devoluciones_caja.sql` crea funciones
 
 La migración `20260824030000_stage7_documentacion_storage.sql` configura el bucket privado `documentacion` con límite de 10 MB y MIME permitidos PDF, JPEG y PNG. Las políticas de `storage.objects` exigen sesión autenticada y rol de administración o recepción. PostgreSQL conserva solamente bucket, ruta, metadata y relaciones; los archivos no se almacenan en tablas. El reemplazo crea un documento nuevo y marca el anterior como reemplazado dentro de una única transacción de base de datos.
 
+### Etapa 8 sin cambios de esquema
+
+Los reportes consultan sesiones, tratamientos, pacientes, pagos, devoluciones, documentos, boxes y obras sociales mediante la API autenticada y las políticas RLS existentes. Los KPIs y cierres se calculan para el período solicitado; no se persisten agregados que puedan divergir de los movimientos originales.
+
 - La migración figura aplicada en el historial remoto; debe verificarse con `npx supabase migration list` antes de cualquier trabajo posterior.
 - El seed contiene únicamente información ficticia e idempotente por claves naturales. Resuelve FKs por DNI, código, nombre, autorización, referencia, fecha o ruta, tolera UUID de catálogo diferentes, no crea usuarios y no incluye secretos.
 - El seed completo todavía no fue cargado ni validado en remoto. Su carga deberá hacerse manualmente desde SQL Editor, en una ventana controlada, después de revisar el proyecto y confirmar que no existen datos que puedan confundirse con el prefijo ficticio `SEED-`, DNI `90000001`–`90000020` o códigos `*-DEMO`.

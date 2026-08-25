@@ -1,5 +1,16 @@
 # Changelog
 
+## Etapa 8 - Reportes y cierres por obra social
+
+### Agregado
+
+- Reportes de pacientes, sesiones, ausencias, cancelaciones, pagos, devoluciones y recaudación.
+- Conteos por box y obra social con visualización compacta.
+- Cierre por obra social con documentación completa o pendiente por paciente.
+- Filtros por período, cobertura, box y tipo de tratamiento.
+- Exportación CSV compatible con Excel e impresión preparada para guardar como PDF.
+- Cálculos derivados sin tablas ni columnas duplicadas.
+
 ## Etapa 7 - Documentación y Storage
 
 ### Agregado
