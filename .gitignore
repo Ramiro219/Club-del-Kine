@@ -12,3 +12,4 @@ dist
 !.vscode/extensions.json
 work/
 outputs/
+.wrangler/
