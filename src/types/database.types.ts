@@ -280,6 +280,87 @@ export type Database = {
           },
         ]
       }
+      configuracion_alertas: {
+        Row: {
+          capacidad_activa: boolean
+          capacidad_dias_anticipacion: number
+          created_at: string
+          documentacion_pendiente_activa: boolean
+          id: string
+          lista_espera_activa: boolean
+          pago_pendiente_activa: boolean
+          sesiones_bajas_activa: boolean
+          sesiones_restantes_umbral: number
+          tratamiento_vencido_activa: boolean
+          turno_proximo_activa: boolean
+          turno_proximo_horas: number
+          updated_at: string
+        }
+        Insert: {
+          capacidad_activa?: boolean
+          capacidad_dias_anticipacion?: number
+          created_at?: string
+          documentacion_pendiente_activa?: boolean
+          id: string
+          lista_espera_activa?: boolean
+          pago_pendiente_activa?: boolean
+          sesiones_bajas_activa?: boolean
+          sesiones_restantes_umbral?: number
+          tratamiento_vencido_activa?: boolean
+          turno_proximo_activa?: boolean
+          turno_proximo_horas?: number
+          updated_at?: string
+        }
+        Update: {
+          capacidad_activa?: boolean
+          capacidad_dias_anticipacion?: number
+          created_at?: string
+          documentacion_pendiente_activa?: boolean
+          id?: string
+          lista_espera_activa?: boolean
+          pago_pendiente_activa?: boolean
+          sesiones_bajas_activa?: boolean
+          sesiones_restantes_umbral?: number
+          tratamiento_vencido_activa?: boolean
+          turno_proximo_activa?: boolean
+          turno_proximo_horas?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      configuracion_centro: {
+        Row: {
+          created_at: string
+          direccion: string | null
+          email: string | null
+          id: string
+          nombre: string
+          telefono: string | null
+          updated_at: string
+          zona_horaria: string
+        }
+        Insert: {
+          created_at?: string
+          direccion?: string | null
+          email?: string | null
+          id: string
+          nombre: string
+          telefono?: string | null
+          updated_at?: string
+          zona_horaria?: string
+        }
+        Update: {
+          created_at?: string
+          direccion?: string | null
+          email?: string | null
+          id?: string
+          nombre?: string
+          telefono?: string | null
+          updated_at?: string
+          zona_horaria?: string
+        }
+        Relationships: []
+      }
       configuracion_horarios: {
         Row: {
           activo: boolean
@@ -1064,6 +1145,42 @@ export type Database = {
             referencedColumns: ["id", "paciente_id"]
           },
         ]
+      }
+      profesionales: {
+        Row: {
+          activo: boolean
+          created_at: string
+          email: string | null
+          especialidad: string
+          id: string
+          matricula: string
+          nombre_completo: string
+          telefono: string | null
+          updated_at: string
+        }
+        Insert: {
+          activo?: boolean
+          created_at?: string
+          email?: string | null
+          especialidad: string
+          id?: string
+          matricula: string
+          nombre_completo: string
+          telefono?: string | null
+          updated_at?: string
+        }
+        Update: {
+          activo?: boolean
+          created_at?: string
+          email?: string | null
+          especialidad?: string
+          id?: string
+          matricula?: string
+          nombre_completo?: string
+          telefono?: string | null
+          updated_at?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {

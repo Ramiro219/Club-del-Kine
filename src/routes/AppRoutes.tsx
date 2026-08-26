@@ -20,6 +20,7 @@ import { ReportesPage } from '../pages/Reportes/ReportesPage'
 import { AlertasPage } from '../pages/Alertas/AlertasPage'
 import { ListaEsperaPage } from '../pages/ListaEspera/ListaEsperaPage'
 import { LicenciaPage } from '../pages/Licencia/LicenciaPage'
+import { ConfiguracionPage } from '../pages/Configuracion/ConfiguracionPage'
 
 function ProtectedApp() {
   const { user, loading } = useAuth()
@@ -50,6 +51,7 @@ export function AppRoutes() {
           <Route path="reportes" element={<ReportesPage />} />
           <Route path="alertas" element={<AlertasPage />} />
           <Route path="lista-espera" element={<ListaEsperaPage />} />
+          <Route path="configuracion" element={<ConfiguracionPage />} />
           <Route path=":module" element={<PlaceholderPage />} />
         </Route></Route>
       </Route>
