@@ -19,14 +19,14 @@ const mapSession = (session: Session): AppUser => ({
   id: session.user.id,
   email: session.user.email ?? '',
   name: String(session.user.user_metadata.full_name ?? session.user.email?.split('@')[0] ?? 'Usuario'),
-  role: session.user.user_metadata.role === 'administrador' ? 'administrador' : 'recepcion',
+  role: session.user.user_metadata.role === 'desarrollador' ? 'desarrollador' : session.user.user_metadata.role === 'administrador' ? 'administrador' : 'recepcion',
 })
 
 async function mapSessionWithProfile(session: Session): Promise<AppUser> {
   const fallback = mapSession(session)
   if (!supabase) return fallback
   const { data } = await supabase.from('profiles').select('nombre_completo,rol').eq('id', session.user.id).maybeSingle()
-  return data ? { ...fallback, name: data.nombre_completo || fallback.name, role: data.rol === 'administrador' ? 'administrador' : 'recepcion' } : fallback
+  return data ? { ...fallback, name: data.nombre_completo || fallback.name, role: data.rol === 'desarrollador' ? 'desarrollador' : data.rol === 'administrador' ? 'administrador' : 'recepcion' } : fallback
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {

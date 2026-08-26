@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
+import { LicenseBanner } from '../LicenseBanner'
 
 export function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -10,6 +11,7 @@ export function AppLayout() {
     <div className={`app-shell ${collapsed ? 'nav-collapsed' : ''}`}>
       <Sidebar open={mobileOpen} collapsed={collapsed} onClose={() => setMobileOpen(false)} onCollapse={() => setCollapsed((v) => !v)} />
       <div className="app-main">
+        <LicenseBanner />
         <Header onMenu={() => setMobileOpen(true)} />
         <main className="page-content"><Outlet /></main>
       </div>

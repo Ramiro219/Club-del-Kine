@@ -1,5 +1,5 @@
 import { ArrowLeft, ExternalLink, MessageCircle, Pencil, ShieldCheck, UserRound } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Badge } from '../../components/ui/Badge'
@@ -21,8 +21,8 @@ export function PacienteDetailPage() {
   const [patient, setPatient] = useState<PacienteConObraSocial | null>(null)
   const [tab, setTab] = useState('Datos')
   const [editing, setEditing] = useState(false)
-  const load = async () => { try { setPatient(await getPaciente(id)) } catch (error) { toast.error(error instanceof Error ? error.message : 'No se pudo cargar la ficha.') } }
-  useEffect(() => { void load() }, [id])
+  const load = useCallback(async () => { try { setPatient(await getPaciente(id)) } catch (error) { toast.error(error instanceof Error ? error.message : 'No se pudo cargar la ficha.') } }, [id])
+  useEffect(() => { void load() }, [load])
   if (!patient) return <div className="table-loading">Cargando ficha del paciente…</div>
   const portal = patient.obra_social?.portal_paciente_url_template?.replace('{dni}', patient.dni).replace('{afiliado}', patient.numero_afiliado ?? '') || patient.obra_social?.portal_url
   const whatsapp = patient.telefono ? `https://wa.me/${patient.telefono.replace(/\D/g, '')}` : null

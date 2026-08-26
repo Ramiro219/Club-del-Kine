@@ -80,6 +80,16 @@ Incluye filtros por período, obra social, box y tratamiento; indicadores de pac
 
 Incluye sincronización idempotente de alertas operativas, contador en la cabecera, resolución y descarte; lista de espera con prioridades, disponibilidad y estados; y mensajes editables que abren WhatsApp mediante `wa.me`, sin API paga ni envío automático.
 
+## Etapa 10: configuración y licenciamiento
+
+Incluye una licencia única de 30 días validada exclusivamente con el reloj de PostgreSQL, avisos progresivos durante los últimos 7 días y bloqueo operativo al vencer sin borrar ni modificar datos. El rol protegido `desarrollador` queda separado de administración y recepción; sólo ese rol puede renovar por períodos fijos de 30 días y consultar el historial de renovaciones.
+
+La migración `20260826010000_stage10_licenciamiento.sql` debe aplicarse antes de utilizar la interfaz. Para crear el primer desarrollador, primero se crea un usuario normal en Authentication y después, desde SQL Editor y tras verificar su UUID, se asigna `rol='desarrollador'`. La interfaz web no permite conceder ni quitar ese rol. Las comprobaciones no destructivas están en `supabase/tests/stage10_licenciamiento.sql`.
+
+## Etapa 11: pruebas integrales y seguridad
+
+La guía de cierre está en `STAGE11_QA.md`. `npm run check` ejecuta ESLint, TypeScript y el build de producción; `supabase/tests/stage11_security_audit.sql` comprueba RLS, privilegios y funciones privilegiadas sin modificar datos. La aplicación sólo queda lista para desplegar cuando también se completa la matriz manual de los tres roles.
+
 ### Flujo de base de datos sin Docker
 
 El flujo utilizado fue remoto y controlado desde Supabase CLI, sin levantar el stack local con Docker:

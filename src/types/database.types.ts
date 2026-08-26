@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.15"
+    PostgrestVersion: "14.17"
   }
   public: {
     Tables: {
@@ -566,6 +566,90 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      licencia_renovaciones: {
+        Row: {
+          created_at: string
+          id: string
+          licencia_id: string
+          observaciones: string | null
+          periodo_dias: number
+          renovada_por: string
+          vigencia_anterior_at: string
+          vigencia_nueva_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          licencia_id: string
+          observaciones?: string | null
+          periodo_dias: number
+          renovada_por: string
+          vigencia_anterior_at: string
+          vigencia_nueva_at: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          licencia_id?: string
+          observaciones?: string | null
+          periodo_dias?: number
+          renovada_por?: string
+          vigencia_anterior_at?: string
+          vigencia_nueva_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "licencia_renovaciones_licencia_id_fkey"
+            columns: ["licencia_id"]
+            isOneToOne: false
+            referencedRelation: "licencias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "licencia_renovaciones_renovada_por_fkey"
+            columns: ["renovada_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      licencias: {
+        Row: {
+          activa: boolean
+          cliente_codigo: string
+          cliente_nombre: string
+          created_at: string
+          id: string
+          inicio_at: string
+          observaciones: string | null
+          updated_at: string
+          vence_at: string
+        }
+        Insert: {
+          activa?: boolean
+          cliente_codigo: string
+          cliente_nombre: string
+          created_at?: string
+          id?: string
+          inicio_at: string
+          observaciones?: string | null
+          updated_at?: string
+          vence_at: string
+        }
+        Update: {
+          activa?: boolean
+          cliente_codigo?: string
+          cliente_nombre?: string
+          created_at?: string
+          id?: string
+          inicio_at?: string
+          observaciones?: string | null
+          updated_at?: string
+          vence_at?: string
+        }
+        Relationships: []
       }
       lista_espera: {
         Row: {
@@ -1428,6 +1512,8 @@ export type Database = {
         Returns: string
       }
       current_user_has_role: { Args: { roles: string[] }; Returns: boolean }
+      estado_licencia: { Args: never; Returns: Json }
+      historial_licencia: { Args: never; Returns: Json }
       reemplazar_documento_atomico: {
         Args: {
           p_documento_id: string
@@ -1459,6 +1545,10 @@ export type Database = {
           p_sesion_ids?: string[]
           p_tratamiento_id: string
         }
+        Returns: string
+      }
+      renovar_licencia_30_dias: {
+        Args: { p_observaciones?: string }
         Returns: string
       }
       sincronizar_alertas_operativas: { Args: never; Returns: number }

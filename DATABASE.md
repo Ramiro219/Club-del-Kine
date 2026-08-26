@@ -35,6 +35,9 @@ Todas las tablas del dominio tienen RLS habilitado y `anon` no recibe privilegio
 - `administrador`: lectura, alta y actualización de las tablas operativas, administración de perfiles y lectura de auditoría. La API no tiene DELETE sobre tablas del dominio: las bajas usan estados, anulaciones o `activo`.
 - `recepcion`: consulta el dominio y registra operaciones habituales de pacientes, tratamientos, agenda, sesiones, pagos, aplicaciones, documentos, espera y alertas. No registra devoluciones o cierres, no administra perfiles, roles, catálogos, reglas ni configuración sensible y no lee auditoría.
 - Perfil propio: cada usuario autenticado puede leer su perfil. Los cambios de rol o estado quedan reservados al administrador.
+- `desarrollador`: no hereda permisos operativos. Puede consultar el estado de la licencia, renovarla por 30 días mediante una función protegida y revisar el historial. Su alta o baja de rol sólo se realiza desde una conexión PostgreSQL confiable.
+
+La vigencia se compara con `now()` en PostgreSQL, nunca con la hora del navegador. Cuando vence, `current_user_has_role()` deja de autorizar a administración y recepción, por lo que RLS bloquea las operaciones aunque se omita o manipule la interfaz. Las tablas permanecen intactas y vuelven a estar disponibles después de una renovación autorizada.
 
 El trigger sobre `auth.users` crea o sincroniza el perfil. La migración también inserta perfiles faltantes para usuarios preexistentes. Todo usuario nuevo o preexistente se sincroniza como `recepcion`: nunca se confía en `raw_user_meta_data` para conceder privilegios. El primer administrador debe asignarse una sola vez desde SQL Editor o una sesión PostgreSQL confiable, después de verificar manualmente su UUID; desde entonces los administradores pueden gestionar roles mediante RLS.
 

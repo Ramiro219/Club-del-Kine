@@ -2,6 +2,7 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { AppLayout } from '../components/layout/AppLayout'
 import { LoadingScreen } from '../components/ui/LoadingScreen'
 import { useAuth } from '../contexts/AuthContext'
+import { useLicense } from '../contexts/LicenseContext'
 import { DashboardPage } from '../pages/Dashboard/DashboardPage'
 import { LoginPage } from '../pages/Login/LoginPage'
 import { ObrasSocialesPage } from '../pages/ObrasSociales/ObrasSocialesPage'
@@ -18,6 +19,7 @@ import { DocumentacionPage } from '../pages/Documentacion/DocumentacionPage'
 import { ReportesPage } from '../pages/Reportes/ReportesPage'
 import { AlertasPage } from '../pages/Alertas/AlertasPage'
 import { ListaEsperaPage } from '../pages/ListaEspera/ListaEsperaPage'
+import { LicenciaPage } from '../pages/Licencia/LicenciaPage'
 
 function ProtectedApp() {
   const { user, loading } = useAuth()
@@ -25,12 +27,15 @@ function ProtectedApp() {
   return user ? <Outlet /> : <Navigate to="/login" replace />
 }
 
+function OperationalApp(){const{user,demoMode}=useAuth();const{license,loading,error}=useLicense();if(!demoMode&&(loading||(!license&&!error)))return<LoadingScreen/>;if(!demoMode&&(error||user?.role==='desarrollador'||license?.estado==='vencida'))return<Navigate to="/licencia" replace/>;return<Outlet/>}
+
 export function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route element={<ProtectedApp />}>
-        <Route element={<AppLayout />}>
+        <Route path="licencia" element={<LicenciaPage />} />
+        <Route element={<OperationalApp />}><Route element={<AppLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="pacientes" element={<PacientesPage />} />
           <Route path="pacientes/:id" element={<PacienteDetailPage />} />
@@ -46,7 +51,7 @@ export function AppRoutes() {
           <Route path="alertas" element={<AlertasPage />} />
           <Route path="lista-espera" element={<ListaEsperaPage />} />
           <Route path=":module" element={<PlaceholderPage />} />
-        </Route>
+        </Route></Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

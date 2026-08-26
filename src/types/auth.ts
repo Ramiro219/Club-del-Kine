@@ -1,4 +1,4 @@
-export type AppRole = 'administrador' | 'recepcion'
+export type AppRole = 'administrador' | 'recepcion' | 'desarrollador'
 
 export interface AppUser {
   id: string

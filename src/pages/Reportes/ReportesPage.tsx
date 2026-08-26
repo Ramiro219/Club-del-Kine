@@ -21,8 +21,6 @@ export function ReportesPage() {
   const [loading, setLoading] = useState(false)
   useEffect(() => { reportCatalogs().then(setCatalogs).catch((error) => toast.error(error.message)) }, [])
   async function load() { if (filters.from > filters.to) return toast.error('La fecha desde no puede ser posterior a la fecha hasta.'); if (kind === 'cierre' && !filters.insurerId) return toast.error('Seleccioná una obra social para generar el cierre.'); setLoading(true); try { setReport(await getReport(filters)) } catch (error) { toast.error(error instanceof Error ? error.message : 'No se pudo generar el reporte.') } finally { setLoading(false) } }
-  useEffect(() => { if (kind !== 'cierre') void load() }, [])
-
   const table = useMemo(() => {
     if (['pagos', 'devoluciones', 'recaudacion'].includes(kind)) {
       const rows = report.financialRows.filter((item) => kind === 'recaudacion' || item.type === (kind === 'pagos' ? 'pago' : 'devolucion'))

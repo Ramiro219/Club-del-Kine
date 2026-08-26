@@ -1,5 +1,33 @@
 # Changelog
 
+## Etapa 11 - Pruebas integrales y seguridad
+
+### Agregado
+
+- Comando único `npm run check` para lint, TypeScript y build de producción.
+- Auditoría SQL de RLS, privilegios, funciones `SECURITY DEFINER` y licencia.
+- Matriz manual de permisos para recepción, administración y desarrollador.
+- Checklist de regresión funcional, vencimiento seguro y experiencia móvil.
+- Configuración ESLint corregida para el stack real React + Vite.
+
+### Corregido
+
+- Dependencias incorrectas de Next.js en ESLint.
+- Dependencias de hooks y ordenamiento mutable de horarios de boxes.
+- Permiso `EXECUTE` heredado por `PUBLIC` en el trigger que protege el rol desarrollador.
+
+## Etapa 10 - Configuración y licenciamiento
+
+### Agregado
+
+- Licencia inicial de 30 días y estado calculado con la hora segura de PostgreSQL.
+- Alertas visuales progresivas a 7, 3 y 1 día del vencimiento.
+- Restricción operativa por RLS cuando la licencia vence, sin alterar datos.
+- Rol exclusivo y protegido `desarrollador`, sin permisos operativos heredados.
+- Renovación atómica por 30 días e historial inmutable con responsable y observaciones.
+- Panel responsivo para consultar, renovar y auditar licencias.
+- Pruebas SQL estructurales y negativas, ejecutables dentro de una transacción reversible.
+
 ## Etapa 9 - Alertas, lista de espera y WhatsApp
 
 ### Agregado

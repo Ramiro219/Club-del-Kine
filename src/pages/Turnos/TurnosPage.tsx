@@ -1,4 +1,4 @@
-import { CalendarDays, ChevronLeft, ChevronRight, Clock3, Plus, Settings2, Users } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Clock3, Plus, Settings2, Users } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
