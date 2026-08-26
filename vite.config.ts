@@ -13,7 +13,7 @@ export default defineConfig({
       viteEnvironment: { name: 'server' },
       config: {
         main: './worker/index.ts',
-        compatibility_date: '2026-08-26',
+        compatibility_date: '2026-05-22',
         assets: { not_found_handling: 'single-page-application' },
       },
     }),
